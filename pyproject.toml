@@ -1,0 +1,95 @@
+[build-system]
+requires = [
+  "setuptools>=61.2",
+  "setuptools_scm[toml]>=6.2",
+  "wheel",
+
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quantity_typing_docs"
+description = "Testing for documenting Python type annotations with astropy Quantities"
+readme = "README.rst"
+requires-python = ">=3.9"
+license = { file = "licenses/LICENSE.rst", content-type = "text/plain" }
+
+authors = [
+  { name = "David Stansby", email = "dstansby@gmail.com" },
+]
+
+dependencies = [
+  "astropy"
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-doctestplus",
+]
+docs = [
+    "sphinx",
+    "sphinx-automodapi",
+    "tomli; python_version <\"3.11\"",
+]
+
+
+
+
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+
+[tool.setuptools.packages.find]
+
+[tool.setuptools_scm]
+
+write_to = "quantity_typing_docs/version.py"
+
+
+
+[tool.pytest.ini_options]
+testpaths = [
+  "quantity_typing_docs",
+  "docs",
+]
+doctest_plus = "enabled"
+text_file_format = "rst"
+addopts = "--doctest-rst"
+
+[tool.coverage.run]
+omit = [
+ "quantity_typing_docs/__init*",
+ "quantity_typing_docs/conftest.py",
+ "quantity_typing_docs/*setup_package*",
+ "quantity_typing_docs/tests/*",
+ "quantity_typing_docs/*/tests/*",
+ "quantity_typing_docs/extern/*",
+ "quantity_typing_docs/version*",
+ "*/quantity_typing_docs/__init*",
+ "*/quantity_typing_docs/conftest.py",
+ "*/quantity_typing_docs/*setup_package*",
+ "*/quantity_typing_docs/tests/*",
+ "*/quantity_typing_docs/*/tests/*",
+ "*/quantity_typing_docs/extern/*",
+ "*/quantity_typing_docs/version*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  # Have to re-enable the standard pragma
+  "pragma: no cover",
+  # Don't complain about packages we have installed
+  "except ImportError",
+  # Don't complain if tests don't hit assertions
+  "raise AssertionError",
+  "raise NotImplementedError",
+  # Don't complain about script hooks
+  "def main(.*):",
+  # Ignore branches that don't pertain to this version of Python
+  "pragma: py{ignore_python_version}",
+  # Don't complain about IPython completion helper
+  "def _ipython_key_completions_", 
+]
